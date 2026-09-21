@@ -4,7 +4,7 @@ A playground project demonstrating how to use the [unofficial Antigravity SDK fo
 
 This SDK allows you to build, configure, host, and execute AI agents in Java, bridging the gap for enterprise Java developers who want to harness the power of Antigravity with Gemini models.
 
-The native Go harness engine is automatically bundled directly within the SDK JAR dependency (`antigravity-sdk-wrapper`) across all major platforms (macOS ARM/Intel, Linux ARM/Intel, Windows x86/ARM).
+The SDK features an on-demand native harness downloader: on first run, it automatically fetches and caches the appropriate native Go harness binary (`localharness`) for your platform into `~/.antigravity/bin/<slice>/`. Subsequent runs reuse the cached binary.
 
 ---
 
@@ -152,13 +152,13 @@ This playground project includes the official [Agent Skill](skills/antigravity-s
 
 ## Maven Dependencies
 
-The playground uses version `0.2.13` of the SDK and version `0.1.0` of Ansiren:
+The playground uses version `0.2.14` of the SDK and version `0.1.0` of Ansiren:
 
 ```xml
 <dependency>
     <groupId>io.github.glaforge.antigravity</groupId>
     <artifactId>antigravity-sdk-wrapper</artifactId>
-    <version>0.2.13</version>
+    <version>0.2.14</version>
 </dependency>
 
 <dependency>
