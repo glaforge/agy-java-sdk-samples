@@ -35,23 +35,30 @@ The project uses Maven with the included Maven Wrapper (`./mvnw`).
 ./mvnw clean compile
 ```
 
-### 2. Run the Hello World Sample
+### 2. Run the Samples
 
-```bash
-./mvnw exec:java
-```
-
-Or execute directly by pointing to the main class:
-
+Run Sample 01 (Hello World):
 ```bash
 ./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._01_HelloWorld"
 ```
+
+Run Sample 02 (Local Weather Tool):
+```bash
+./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._02_WeatherTool"
+```
+
+---
+
+## Available Samples
+
+1. **[`_01_HelloWorld`](src/main/java/io/github/glaforge/samples/_01_HelloWorld.java)**: Basic agent configuration and execution turn, formatted with ANSI styling.
+2. **[`_02_WeatherTool`](src/main/java/io/github/glaforge/samples/_02_WeatherTool.java)**: Registering local Java tools via `@Tool` and `@Param`, returning structured `record` data that the LLM invokes to answer questions about the weather.
 
 ---
 
 ## Sample Code
 
-Here is the simple Hello World agent sample in [`_01_HelloWorld.java`](src/main/java/io/github/glaforge/samples/_01_HelloWorld.java):
+### 01: Hello World Agent (`_01_HelloWorld.java`)
 
 ```java
 package io.github.glaforge.samples;
@@ -94,6 +101,37 @@ public class _01_HelloWorld {
         } catch (Exception e) {
             System.err.println(red("Error running agent: " + e.getMessage()));
             e.printStackTrace();
+        }
+    }
+}
+```
+
+### 02: Local Weather Tool Agent (`_02_WeatherTool.java`)
+
+```java
+public class _02_WeatherTool {
+
+    public record WeatherReport(String city, String condition, int temperatureCelsius, int humidityPercent) {}
+
+    public static class WeatherTools {
+        @Tool(name = "get_weather", description = "Get current weather conditions and temperature for a given city.")
+        public WeatherReport getWeather(
+                @Param(name = "city", description = "The name of the city, e.g. Paris, Tokyo, London") String city
+        ) {
+            System.out.println(bold(yellow("⚡ [Local Tool Invoked] ")) + yellow("get_weather(city=\"" + city + "\")"));
+            return new WeatherReport("Paris", "Sunny with mild breeze", 22, 55);
+        }
+    }
+
+    public static void main(String[] args) {
+        AgentConfig config = AgentConfig.builder()
+                .instructions("You are a helpful assistant with access to local tools. Always use the get_weather tool when asked about the weather.")
+                .addTool(new WeatherTools())
+                .build();
+
+        try (Agent agent = new Agent(config)) {
+            AgentResponse response = agent.chat("What is the current weather in Paris?").get(120, TimeUnit.SECONDS);
+            System.out.println(new MarkdownRenderer().render(response.text()));
         }
     }
 }
