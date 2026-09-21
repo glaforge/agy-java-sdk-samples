@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.glaforge.samples</groupId>
+    <artifactId>antigravity-java-playground</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>Antigravity Java Playground</name>
+    <description>Playground project demonstrating the unofficial Antigravity SDK for Java</description>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <antigravity.version>0.2.12</antigravity.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <main.class>io.github.glaforge.samples.HelloWorldAgent</main.class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.glaforge.antigravity</groupId>
+            <artifactId>antigravity-sdk-wrapper</artifactId>
+            <version>${antigravity.version}</version>
+        </dependency>
+
+        <!-- Logging provider -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

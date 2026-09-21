@@ -1,0 +1,9 @@
+target/
+*.class
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Native Go localharness binary (>100MB, extracted via ./sync-harness.sh)
+src/main/resources/google/antigravity/bin/
