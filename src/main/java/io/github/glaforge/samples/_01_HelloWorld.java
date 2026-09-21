@@ -1,12 +1,17 @@
 package io.github.glaforge.samples;
 
-import io.github.glaforge.ansiren.Ansi;
 import io.github.glaforge.ansiren.MarkdownRenderer;
 import io.github.glaforge.antigravity.Agent;
 import io.github.glaforge.antigravity.AgentConfig;
 import io.github.glaforge.antigravity.AgentResponse;
 
 import java.util.concurrent.TimeUnit;
+
+import static io.github.glaforge.ansiren.Ansi.blue;
+import static io.github.glaforge.ansiren.Ansi.bold;
+import static io.github.glaforge.ansiren.Ansi.green;
+import static io.github.glaforge.ansiren.Ansi.ready;
+import static io.github.glaforge.ansiren.Ansi.red;
 
 /**
  * Sample 01: A simple Hello World demonstrating how to create and chat with an Agent
@@ -16,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class _01_HelloWorld {
 
     public static void main(String[] args) {
-        System.out.println(Ansi.ready()
+        System.out.println(ready()
                 .bold().brightCyan()
                 .append("\n=== Antigravity Java SDK - 01 Hello World ===\n")
                 .reset());
@@ -29,16 +34,16 @@ public class _01_HelloWorld {
         // Always wrap Agent in try-with-resources to ensure proper cleanup of the Go harness process
         try (Agent agent = new Agent(config)) {
             String prompt = "Hello! Please introduce yourself in two short bullet points.";
-            System.out.println(Ansi.bold(Ansi.blue("User: ")) + prompt);
-            System.out.println(Ansi.ready().faint().italic().append("Waiting for agent response...\n").reset());
+            System.out.println(bold(blue("User: ")) + prompt);
+            System.out.println(ready().faint().italic().append("Waiting for agent response...\n").reset());
 
             AgentResponse response = agent.chat(prompt).get(120, TimeUnit.SECONDS);
 
-            System.out.println(Ansi.bold(Ansi.green("Agent:")));
+            System.out.println(bold(green("Agent:")));
             MarkdownRenderer markdownRenderer = new MarkdownRenderer();
             System.out.println(markdownRenderer.render(response.text()));
         } catch (Exception e) {
-            System.err.println(Ansi.red("Error running agent: " + e.getMessage()));
+            System.err.println(red("Error running agent: " + e.getMessage()));
             e.printStackTrace();
         }
     }
