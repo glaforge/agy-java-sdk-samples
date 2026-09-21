@@ -7,13 +7,13 @@ import io.github.glaforge.antigravity.AgentResponse;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A simple Hello World sample demonstrating how to create and chat with an Agent
+ * Sample 01: A simple Hello World demonstrating how to create and chat with an Agent
  * using the unofficial Antigravity SDK for Java.
  */
-public class HelloWorldAgent {
+public class _01_HelloWorld {
 
     public static void main(String[] args) {
-        System.out.println("=== Antigravity Java SDK - Hello World ===");
+        System.out.println("=== Antigravity Java SDK - 01 Hello World ===");
 
         // Configure the agent with system instructions
         AgentConfig config = AgentConfig.builder()

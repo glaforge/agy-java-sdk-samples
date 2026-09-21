@@ -44,14 +44,14 @@ The project uses Maven with the included Maven Wrapper (`./mvnw`).
 Or execute directly by pointing to the main class:
 
 ```bash
-./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples.HelloWorldAgent"
+./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._01_HelloWorld"
 ```
 
 ---
 
 ## Sample Code
 
-Here is the simple Hello World agent sample in [`HelloWorldAgent.java`](src/main/java/io/github/glaforge/samples/HelloWorldAgent.java):
+Here is the simple Hello World agent sample in [`_01_HelloWorld.java`](src/main/java/io/github/glaforge/samples/_01_HelloWorld.java):
 
 ```java
 package io.github.glaforge.samples;
@@ -62,7 +62,7 @@ import io.github.glaforge.antigravity.AgentResponse;
 
 import java.util.concurrent.TimeUnit;
 
-public class HelloWorldAgent {
+public class _01_HelloWorld {
 
     public static void main(String[] args) {
         System.out.println("=== Antigravity Java SDK - Hello World ===");
