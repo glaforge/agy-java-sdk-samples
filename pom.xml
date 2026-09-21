@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <antigravity.version>0.2.13</antigravity.version>
         <slf4j.version>2.0.17</slf4j.version>
+        <ansiren.version>0.1.0</ansiren.version>
         <main.class>io.github.glaforge.samples._01_HelloWorld</main.class>
     </properties>
 
@@ -24,6 +25,13 @@
             <groupId>io.github.glaforge.antigravity</groupId>
             <artifactId>antigravity-sdk-wrapper</artifactId>
             <version>${antigravity.version}</version>
+        </dependency>
+
+        <!-- ANSI and Markdown terminal rendering -->
+        <dependency>
+            <groupId>io.github.glaforge</groupId>
+            <artifactId>ansiren</artifactId>
+            <version>${ansiren.version}</version>
         </dependency>
 
         <!-- Logging provider -->

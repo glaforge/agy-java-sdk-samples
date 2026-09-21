@@ -56,6 +56,8 @@ Here is the simple Hello World agent sample in [`_01_HelloWorld.java`](src/main/
 ```java
 package io.github.glaforge.samples;
 
+import io.github.glaforge.ansiren.Ansi;
+import io.github.glaforge.ansiren.MarkdownRenderer;
 import io.github.glaforge.antigravity.Agent;
 import io.github.glaforge.antigravity.AgentConfig;
 import io.github.glaforge.antigravity.AgentResponse;
@@ -65,21 +67,27 @@ import java.util.concurrent.TimeUnit;
 public class _01_HelloWorld {
 
     public static void main(String[] args) {
-        System.out.println("=== Antigravity Java SDK - Hello World ===");
+        System.out.println(Ansi.ready()
+                .bold().brightCyan()
+                .append("\n=== Antigravity Java SDK - 01 Hello World ===\n")
+                .reset());
 
         AgentConfig config = AgentConfig.builder()
                 .instructions("You are a helpful and concise AI assistant.")
                 .build();
 
         try (Agent agent = new Agent(config)) {
-            String prompt = "Hello! Please introduce yourself in one or two sentences.";
-            System.out.println("User: " + prompt);
+            String prompt = "Hello! Please introduce yourself in two short bullet points.";
+            System.out.println(Ansi.bold(Ansi.blue("User: ")) + prompt);
+            System.out.println(Ansi.ready().faint().italic().append("Waiting for agent response...\n").reset());
 
             AgentResponse response = agent.chat(prompt).get(120, TimeUnit.SECONDS);
 
-            System.out.println("\nAgent:\n" + response.text());
+            System.out.println(Ansi.bold(Ansi.green("Agent:")));
+            MarkdownRenderer markdownRenderer = new MarkdownRenderer();
+            System.out.println(markdownRenderer.render(response.text()));
         } catch (Exception e) {
-            System.err.println("Error running agent: " + e.getMessage());
+            System.err.println(Ansi.red("Error running agent: " + e.getMessage()));
             e.printStackTrace();
         }
     }
@@ -99,14 +107,20 @@ This playground project includes the official [Agent Skill](skills/antigravity-s
 
 ---
 
-## Maven Dependency
+## Maven Dependencies
 
-The playground uses version `0.2.13` of the SDK:
+The playground uses version `0.2.13` of the SDK and version `0.1.0` of Ansiren:
 
 ```xml
 <dependency>
     <groupId>io.github.glaforge.antigravity</groupId>
     <artifactId>antigravity-sdk-wrapper</artifactId>
     <version>0.2.13</version>
+</dependency>
+
+<dependency>
+    <groupId>io.github.glaforge</groupId>
+    <artifactId>ansiren</artifactId>
+    <version>0.1.0</version>
 </dependency>
 ```
