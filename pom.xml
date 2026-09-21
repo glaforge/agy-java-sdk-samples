@@ -14,7 +14,7 @@
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <antigravity.version>0.2.12</antigravity.version>
+        <antigravity.version>0.2.13</antigravity.version>
         <slf4j.version>2.0.17</slf4j.version>
         <main.class>io.github.glaforge.samples.HelloWorldAgent</main.class>
     </properties>
