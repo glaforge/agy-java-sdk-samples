@@ -72,6 +72,11 @@ Run Sample 07 (Built-in Capabilities):
 ./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._07_BuiltinCapabilities"
 ```
 
+Run Sample 08 (GitHub PR Comparison):
+```bash
+./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._08_GitHubPRComparison"
+```
+
 ---
 
 ## Available Samples
@@ -83,6 +88,7 @@ Run Sample 07 (Built-in Capabilities):
 5. **[`_05_AgentSkills`](src/main/java/io/github/glaforge/samples/_05_AgentSkills.java)**: Loading file-based Agent Skills (`.addSkillPath(...)`) conforming to the open Agent Skills specification.
 6. **[`_06_MultiTurnChat`](src/main/java/io/github/glaforge/samples/_06_MultiTurnChat.java)**: Multi-turn conversational memory and `ToolContext` parameter injection for managing session-scoped state.
 7. **[`_07_BuiltinCapabilities`](src/main/java/io/github/glaforge/samples/_07_BuiltinCapabilities.java)**: Enabling native Go harness capabilities (`CapabilitiesConfig`) such as workspace file inspection and web search.
+8. **[`_08_GitHubPRComparison`](src/main/java/io/github/glaforge/samples/_08_GitHubPRComparison.java)**: Comparing two competing GitHub Pull Requests using domain-specific Agent Skills (`skills/github-pr-review`), subagents, custom GitHub tools, and security policies.
 
 ---
 
