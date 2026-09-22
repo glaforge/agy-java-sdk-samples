@@ -1,6 +1,7 @@
 ---
 name: github-pr-review
 description: Expert guidelines, rubrics, and workflows for analyzing, reviewing, and comparing GitHub Pull Requests. Use when evaluating competing or complementary PRs, inspecting code diffs, verifying test quality, assessing backwards compatibility, and formulating merge recommendations.
+license: Apache-2.0
 ---
 
 # GitHub Pull Request Review & Comparison Skill

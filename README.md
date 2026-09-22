@@ -224,3 +224,12 @@ The playground uses version `0.2.15` of the SDK and version `0.1.1` of Ansiren:
     <version>0.1.1</version>
 </dependency>
 ```
+
+---
+
+## License
+
+This project is licensed under the [Apache License, Version 2.0](LICENSE).
+
+Copyright 2026 Google LLC.
+
