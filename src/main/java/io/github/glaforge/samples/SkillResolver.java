@@ -67,7 +67,26 @@ public final class SkillResolver {
             }
         }
 
-        // 3. Fallback: try user.dir relative check if user.dir was different
+        // 3. Check relative to code source directory (e.g. project root when running from an IDE)
+        try {
+            var codeSource = SkillResolver.class.getProtectionDomain().getCodeSource();
+            if (codeSource != null && codeSource.getLocation() != null) {
+                URI uri = codeSource.getLocation().toURI();
+                if ("file".equalsIgnoreCase(uri.getScheme())) {
+                    Path candidate = Path.of(uri);
+                    while (candidate != null) {
+                        Path check = candidate.resolve(skillPath);
+                        if (Files.exists(check)) {
+                            return check.toAbsolutePath().toString();
+                        }
+                        candidate = candidate.getParent();
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
+        // 4. Fallback: try user.dir relative check if user.dir was different
         Path workingDirRelative = Path.of(System.getProperty("user.dir", "."), skillPath);
         if (Files.exists(workingDirRelative)) {
             return workingDirRelative.toAbsolutePath().toString();
