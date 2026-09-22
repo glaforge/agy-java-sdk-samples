@@ -33,7 +33,7 @@ public class _03_Streaming {
                 .build();
 
         try (Agent agent = new Agent(config)) {
-            String prompt = "Write a short 4-line poem about an astronaut enjoying a morning espresso on Mars.";
+            String prompt = "Write a sonnet (4, 4, 3, 3 stanzas) about an astronaut enjoying a morning espresso on Mars.";
             System.out.println(bold(blue("User: ")) + prompt);
             System.out.println(ready().faint().italic().append("Streaming response in real-time...\n").reset());
 
