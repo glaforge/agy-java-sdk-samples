@@ -82,7 +82,7 @@ Run Sample 08 (GitHub PR Comparison):
 ## Available Samples
 
 1. **[`_01_HelloWorld`](src/main/java/io/github/glaforge/samples/_01_HelloWorld.java)**: Basic agent configuration and execution turn, formatted with ANSI styling.
-2. **[`_02_WeatherTool`](src/main/java/io/github/glaforge/samples/_02_WeatherTool.java)**: Registering local Java tools via `@Tool` and `@Param`, returning structured `record` data that the LLM invokes to answer questions about the weather.
+2. **[`_02_WeatherTool`](src/main/java/io/github/glaforge/samples/_02_WeatherTool.java)**: Registering local Java tools via `@Tool` and `@Param`, and generating strongly-typed Structured Output conforming to a Java record (`WeatherAdvisory`) via `finishToolSchema(...)`.
 3. **[`_03_Streaming`](src/main/java/io/github/glaforge/samples/_03_Streaming.java)**: Real-time token-by-token streaming using `chatStream()`, separating model thinking from text deltas.
 4. **[`_04_SecurityPolicies`](src/main/java/io/github/glaforge/samples/_04_SecurityPolicies.java)**: Deny-by-default security policies with `Policies.denyIf(...)`, `allowTool(...)`, and `denyAll()`, blocking dangerous tools before execution.
 5. **[`_05_AgentSkills`](src/main/java/io/github/glaforge/samples/_05_AgentSkills.java)**: Loading file-based Agent Skills (`.addSkillPath(...)`) conforming to the open Agent Skills specification.
@@ -142,12 +142,23 @@ public class _01_HelloWorld {
 }
 ```
 
-### 02: Local Weather Tool Agent (`_02_WeatherTool.java`)
+### 02: Local Weather Tool & Structured Output (`_02_WeatherTool.java`)
 
 ```java
 public class _02_WeatherTool {
 
+    // Tool return data
     public record WeatherReport(String city, String condition, int temperatureCelsius, int humidityPercent) {}
+
+    // Agent structured output schema
+    public record WeatherAdvisory(
+            String city,
+            int temperatureCelsius,
+            String condition,
+            String clothingRecommendation,
+            boolean umbrellaNeeded,
+            List<String> suggestedActivities
+    ) {}
 
     public static class WeatherTools {
         @Tool(name = "get_weather", description = "Get current weather conditions and temperature for a given city.")
@@ -161,16 +172,23 @@ public class _02_WeatherTool {
 
     public static void main(String[] args) {
         AgentConfig config = AgentConfig.builder()
-                .instructions("""
-                        You are a helpful assistant with access to local tools.
-                        Always use the get_weather tool when asked about the weather.
-                        """)
+                .instructions("You are a helpful weather assistant. Always use get_weather before advising.")
                 .addTool(new WeatherTools())
+                .finishToolSchema(WeatherAdvisory.class) // <-- Derives JSON Schema from Java record
                 .build();
 
         try (Agent agent = new Agent(config)) {
-            AgentResponse response = agent.chat("What is the current weather in Paris?").get(120, TimeUnit.SECONDS);
-            System.out.println(new MarkdownRenderer().render(response.text()));
+            AgentResponse response = agent.chat("What is the current weather in Paris? Give me clothing advice and things to do.")
+                    .get(120, TimeUnit.SECONDS);
+
+            // Deserialize directly into strongly-typed Java record
+            WeatherAdvisory advisory = response.getStructuredOutput(WeatherAdvisory.class);
+
+            System.out.println("City: " + advisory.city());
+            System.out.println("Temp: " + advisory.temperatureCelsius() + "°C");
+            System.out.println("Clothing: " + advisory.clothingRecommendation());
+            System.out.println("Umbrella needed? " + (advisory.umbrellaNeeded() ? "Yes ☂️" : "No ☀️"));
+            System.out.println("Activities: " + advisory.suggestedActivities());
         }
     }
 }
