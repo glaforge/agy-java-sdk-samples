@@ -57,8 +57,10 @@ public class _06_MultiTurnChat {
                 .reset());
 
         AgentConfig config = AgentConfig.builder()
-                .instructions("You are a personalized assistant with access to user profile tools. "
-                        + "Save preferences when told, and consult preferences when relevant.")
+                .instructions("""
+                        You are a personalized assistant with access to user profile tools.
+                        Save preferences when told, and consult preferences when relevant.
+                        """)
                 .addTool(new ProfileTools())
                 .build();
 

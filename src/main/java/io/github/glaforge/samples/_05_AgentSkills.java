@@ -31,8 +31,10 @@ public class _05_AgentSkills {
 
         // Configure agent with file-based skill path
         AgentConfig config = AgentConfig.builder()
-                .instructions("You are a helpful expert software engineer specializing in the Antigravity Java SDK. "
-                        + "Consult your installed agent skills to answer technical questions accurately.")
+                .instructions("""
+                        You are a helpful expert software engineer specializing in the Antigravity Java SDK.
+                        Consult your installed agent skills to answer technical questions accurately.
+                        """)
                 .addSkillPath(skillPath)
                 .build();
 

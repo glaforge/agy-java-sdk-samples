@@ -140,11 +140,13 @@ public class _08_GitHubPRComparison {
 
         // Configure agent with skill, tools, security policies, and lifecycle hooks
         AgentConfig config = AgentConfig.builder()
-                .instructions("You are a principal software engineer and open-source project maintainer reviewing GitHub Pull Requests. "
-                        + "Always follow the guidelines and comparative rubrics in your installed 'github-pr-review' skill. "
-                        + "Use your GitHub tools to examine the PR diffs and metadata. "
-                        + "Once you have inspected the diffs and details of both PRs, proceed directly to synthesize your comparative report. "
-                        + "Provide an objective, structured, and in-depth comparison and practical recommendation.")
+                .instructions("""
+                        You are a principal software engineer and open-source project maintainer reviewing GitHub Pull Requests.
+                        Always follow the guidelines and comparative rubrics in your installed 'github-pr-review' skill.
+                        Use your GitHub tools to examine the PR diffs and metadata.
+                        Once you have inspected the diffs and details of both PRs, proceed directly to synthesize your comparative report.
+                        Provide an objective, structured, and in-depth comparison and practical recommendation.
+                        """)
                 .addSkillPath(skillPath)
                 .addTool(new GitHubTools())
                 .capabilities(capabilities)

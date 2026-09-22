@@ -49,9 +49,11 @@ public class _04_SecurityPolicies {
 
         // Configure agent with Deny-by-Default security policies
         AgentConfig config = AgentConfig.builder()
-                .instructions("You are a secure system administrator. "
-                        + "Use available tools to perform maintenance when requested. "
-                        + "If a tool execution is denied by policy, explain the refusal politely.")
+                .instructions("""
+                        You are a secure system administrator.
+                        Use available tools to perform maintenance when requested.
+                        If a tool execution is denied by policy, explain the refusal politely.
+                        """)
                 .addTool(new AdminTools())
                 // 1. Explicitly deny dangerous deletion operations
                 .addPolicy(Policies.denyIf((toolName, argsNode) -> {

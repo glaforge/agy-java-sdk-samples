@@ -35,8 +35,10 @@ public class _07_BuiltinCapabilities {
                 .build();
 
         AgentConfig config = AgentConfig.builder()
-                .instructions("You are a helpful assistant with native capabilities. "
-                        + "Use list_dir and view_file to inspect the project workspace when asked.")
+                .instructions("""
+                        You are a helpful assistant with native capabilities.
+                        Use list_dir and view_file to inspect the project workspace when asked.
+                        """)
                 .capabilities(capabilities)
                 .build();
 

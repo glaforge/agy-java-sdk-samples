@@ -61,8 +61,10 @@ public class _02_WeatherTool {
 
         // Register our WeatherTools with the agent configuration
         AgentConfig config = AgentConfig.builder()
-                .instructions("You are a helpful assistant with access to local tools. "
-                        + "Always use the get_weather tool when asked about the weather.")
+                .instructions("""
+                        You are a helpful assistant with access to local tools.
+                        Always use the get_weather tool when asked about the weather.
+                        """)
                 .addTool(new WeatherTools())
                 .build();
 
