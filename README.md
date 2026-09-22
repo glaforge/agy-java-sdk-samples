@@ -152,7 +152,7 @@ This playground project includes the official [Agent Skill](skills/antigravity-s
 
 ## Maven Dependencies
 
-The playground uses version `0.2.15` of the SDK and version `0.1.0` of Ansiren:
+The playground uses version `0.2.15` of the SDK and version `0.1.1` of Ansiren:
 
 ```xml
 <dependency>
@@ -164,6 +164,6 @@ The playground uses version `0.2.15` of the SDK and version `0.1.0` of Ansiren:
 <dependency>
     <groupId>io.github.glaforge</groupId>
     <artifactId>ansiren</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```

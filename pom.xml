@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <antigravity.version>0.2.15</antigravity.version>
         <slf4j.version>2.0.17</slf4j.version>
-        <ansiren.version>0.1.0</ansiren.version>
+        <ansiren.version>0.1.1</ansiren.version>
         <exec.mainClass>io.github.glaforge.samples._01_HelloWorld</exec.mainClass>
     </properties>
 
