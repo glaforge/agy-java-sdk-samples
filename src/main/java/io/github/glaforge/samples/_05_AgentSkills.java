@@ -4,6 +4,7 @@ import io.github.glaforge.ansiren.MarkdownRenderer;
 import io.github.glaforge.antigravity.Agent;
 import io.github.glaforge.antigravity.AgentConfig;
 import io.github.glaforge.antigravity.AgentResponse;
+import io.github.glaforge.antigravity.CapabilitiesConfig;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,16 +27,21 @@ public class _05_AgentSkills {
                 .append("\n=== Antigravity Java SDK - 05 Agent Skills ===\n")
                 .reset());
 
-        String skillPath = "skills/antigravity-sdk-java";
+        String skillPath = SkillResolver.resolveSkillPath("skills/antigravity-sdk-java");
         System.out.println(ready().faint().append("Registering Agent Skill path: " + skillPath + "\n").reset());
 
-        // Configure agent with file-based skill path
+        // Configure agent with file-based skill path and file viewing capability so it can read SKILL.md
+        CapabilitiesConfig capabilities = CapabilitiesConfig.builder()
+                .enableViewFile(true)
+                .build();
+
         AgentConfig config = AgentConfig.builder()
                 .instructions("""
                         You are a helpful expert software engineer specializing in the Antigravity Java SDK.
                         Consult your installed agent skills to answer technical questions accurately.
                         """)
                 .addSkillPath(skillPath)
+                .capabilities(capabilities)
                 .build();
 
         try (Agent agent = new Agent(config)) {

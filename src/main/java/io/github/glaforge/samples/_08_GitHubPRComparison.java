@@ -120,7 +120,7 @@ public class _08_GitHubPRComparison {
                 .append("\n=== Antigravity Java SDK - 08 GitHub PR Comparison ===\n")
                 .reset());
 
-        String skillPath = "skills/github-pr-review";
+        String skillPath = SkillResolver.resolveSkillPath("skills/github-pr-review");
         System.out.println(ready().faint().append("• Registering Agent Skill: " + skillPath).reset());
         System.out.println(ready().faint().append("• Enabling subagents, URL reading, shell access, and GitHub tools").reset());
 
