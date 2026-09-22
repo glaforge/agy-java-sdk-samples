@@ -6,6 +6,7 @@ import io.github.glaforge.antigravity.AgentConfig;
 import io.github.glaforge.antigravity.AgentResponse;
 import io.github.glaforge.antigravity.CapabilitiesConfig;
 
+import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
 import static io.github.glaforge.ansiren.Ansi.blue;
@@ -27,6 +28,9 @@ public class _07_BuiltinCapabilities {
                 .append("\n=== Antigravity Java SDK - 07 Built-in Capabilities ===\n")
                 .reset());
 
+        Path projectDir = SkillResolver.getProjectDir();
+        System.out.println(ready().faint().append("• Target project directory: " + projectDir + "\n").reset());
+
         // Configure native harness capabilities
         CapabilitiesConfig capabilities = CapabilitiesConfig.builder()
                 .enableListDir(true)
@@ -37,13 +41,14 @@ public class _07_BuiltinCapabilities {
         AgentConfig config = AgentConfig.builder()
                 .instructions("""
                         You are a helpful assistant with native capabilities.
-                        Use list_dir and view_file to inspect the project workspace when asked.
+                        The active project workspace directory is: """ + projectDir + """
+                        Use list_dir and view_file to inspect the project directory when asked.
                         """)
                 .capabilities(capabilities)
                 .build();
 
         try (Agent agent = new Agent(config)) {
-            String prompt = "Please inspect the current workspace directory and summarize what files exist and what this project is.";
+            String prompt = "Please inspect the project directory at " + projectDir + " and summarize what files exist and what this project is.";
             System.out.println(bold(blue("User: ")) + prompt);
             System.out.println(ready().faint().italic().append("Waiting for agent to inspect workspace...\n").reset());
 

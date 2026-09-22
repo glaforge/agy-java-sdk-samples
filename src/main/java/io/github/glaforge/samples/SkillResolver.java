@@ -96,6 +96,37 @@ public final class SkillResolver {
         return directPath.toAbsolutePath().toString();
     }
 
+    /**
+     * Resolves the root project directory containing pom.xml.
+     */
+    public static Path getProjectDir() {
+        // 1. Check if pom.xml exists in user.dir
+        Path localPom = Path.of("pom.xml");
+        if (Files.exists(localPom)) {
+            return localPom.toAbsolutePath().getParent();
+        }
+
+        // 2. Walk up from code source (e.g. target/classes) to find pom.xml
+        try {
+            var codeSource = SkillResolver.class.getProtectionDomain().getCodeSource();
+            if (codeSource != null && codeSource.getLocation() != null) {
+                URI uri = codeSource.getLocation().toURI();
+                if ("file".equalsIgnoreCase(uri.getScheme())) {
+                    Path candidate = Path.of(uri);
+                    while (candidate != null) {
+                        if (Files.exists(candidate.resolve("pom.xml"))) {
+                            return candidate.toAbsolutePath();
+                        }
+                        candidate = candidate.getParent();
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
+        return Path.of(".").toAbsolutePath().normalize();
+    }
+
     private static Path extractSkillFromJar(URL resource) throws IOException {
         Path tempDir = Files.createTempDirectory("antigravity-skill-");
         tempDir.toFile().deleteOnExit();
