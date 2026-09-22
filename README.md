@@ -47,12 +47,42 @@ Run Sample 02 (Local Weather Tool):
 ./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._02_WeatherTool"
 ```
 
+Run Sample 03 (Streaming Responses):
+```bash
+./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._03_Streaming"
+```
+
+Run Sample 04 (Security Policies & Guardrails):
+```bash
+./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._04_SecurityPolicies"
+```
+
+Run Sample 05 (Agent Skills):
+```bash
+./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._05_AgentSkills"
+```
+
+Run Sample 06 (Multi-Turn Chat & ToolContext):
+```bash
+./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._06_MultiTurnChat"
+```
+
+Run Sample 07 (Built-in Capabilities):
+```bash
+./mvnw exec:java -Dexec.mainClass="io.github.glaforge.samples._07_BuiltinCapabilities"
+```
+
 ---
 
 ## Available Samples
 
 1. **[`_01_HelloWorld`](src/main/java/io/github/glaforge/samples/_01_HelloWorld.java)**: Basic agent configuration and execution turn, formatted with ANSI styling.
 2. **[`_02_WeatherTool`](src/main/java/io/github/glaforge/samples/_02_WeatherTool.java)**: Registering local Java tools via `@Tool` and `@Param`, returning structured `record` data that the LLM invokes to answer questions about the weather.
+3. **[`_03_Streaming`](src/main/java/io/github/glaforge/samples/_03_Streaming.java)**: Real-time token-by-token streaming using `chatStream()`, separating model thinking from text deltas.
+4. **[`_04_SecurityPolicies`](src/main/java/io/github/glaforge/samples/_04_SecurityPolicies.java)**: Deny-by-default security policies with `Policies.denyIf(...)`, `allowTool(...)`, and `denyAll()`, blocking dangerous tools before execution.
+5. **[`_05_AgentSkills`](src/main/java/io/github/glaforge/samples/_05_AgentSkills.java)**: Loading file-based Agent Skills (`.addSkillPath(...)`) conforming to the open Agent Skills specification.
+6. **[`_06_MultiTurnChat`](src/main/java/io/github/glaforge/samples/_06_MultiTurnChat.java)**: Multi-turn conversational memory and `ToolContext` parameter injection for managing session-scoped state.
+7. **[`_07_BuiltinCapabilities`](src/main/java/io/github/glaforge/samples/_07_BuiltinCapabilities.java)**: Enabling native Go harness capabilities (`CapabilitiesConfig`) such as workspace file inspection and web search.
 
 ---
 
